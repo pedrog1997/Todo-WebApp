@@ -1,0 +1,14 @@
+﻿<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+</head>
+<body>
+    <h2>Edit Todo</h2>
+    <form action="/todo/update/@Model.Id" method="post">
+        <label>Todo Description</label><input type="text" name="title" value="@Model.Title" />
+        <label>Urgent</label><input type="checkbox" name="isUrgent" value="true" />
+        <label>Done</label><input type="checkbox" name="isDone" value="true" />
+        <button type="submit">Submit</button><a href="/todo/list">Cancel</a>
+    </form>
+</body>
+</html>
