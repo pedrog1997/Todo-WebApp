@@ -18,9 +18,16 @@ namespace ListToDos
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc();
-            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
-            services.AddDbContext<TodoContext>(options => options.UseSqlServer(connectionString));
             services.AddScoped<IRepository, Repository>();
+            var connectionString = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+            if (Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT").Equals("Development"))
+            {
+                services.AddDbContext<TodoContext>(options => options.UseSqlServer(connectionString));
+            }
+            else
+            {
+                services.AddDbContext<TodoContext>(options => options.UseNpgsql(connectionString));
+            }
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
