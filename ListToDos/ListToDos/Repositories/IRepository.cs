@@ -10,9 +10,12 @@ namespace ListToDos.Repositories
     public interface IRepository
     {
         void Create(Todo todo);
-        List<Todo> Read(string email, string password);
-        List<Todo> Read(bool isActive);
+
+        List<Todo> Read(int id);
+        int ReadWithoutId(string email, string password);
+
         void Update(int id, string title, bool isUrgent, bool isDone);
+
         void Delete(int id);
     }
 }

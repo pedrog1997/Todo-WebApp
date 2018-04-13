@@ -9,43 +9,43 @@ namespace ListToDos.Repositories
 {
     public class Repository : IRepository
     {
-        private TodoContext _db;
+        private TodoContext db;
 
         public Repository(TodoContext context)
         {
-            _db = context;
+            db = context;
         }
 
         public void Create(Todo todo)
         {
-            _db.Todos.Add(todo);
-            _db.SaveChanges();
+            db.Todos.Add(todo);
+            db.SaveChanges();
         }
 
-        public void Delete(int id)
+        public List<Todo> Read(int id)
         {
-            Todo todo = _db.Todos.FirstOrDefault(t => t.Id == id);
-            _db.Todos.Remove(todo);
-            _db.SaveChanges();
+            return db.Todos.Where(t => t.User.Id == id).ToList();
         }
-
-        public List<Todo> Read(string email, string password)
+        public int ReadWithoutId(string email, string password)
         {
-            int id = _db.Users.FirstOrDefault(u => u.Email == email && u.Password == password).Id;
-            return _db.Todos.Where(t => t.User.Id == id).ToList();
-        }
-        public List<Todo> Read(bool isActive)
-        {
-            return _db.Todos.Where(t => t.IsDone != isActive).ToList();
+            int userId = db.Users.FirstOrDefault(u => u.Email == email && u.Password == password).Id;
+            return userId;
         }
 
         public void Update(int id, string title, bool isUrgent, bool isDone)
         {
-            Todo todo = _db.Todos.FirstOrDefault(t => t.Id == id);
+            Todo todo = db.Todos.FirstOrDefault(t => t.Id == id);
             todo.Title = title;
             todo.IsUrgent = isUrgent;
             todo.IsDone = isDone;
-            _db.SaveChanges();
+            db.SaveChanges();
+        }
+
+        public void Delete(int id)
+        {
+            Todo todo = db.Todos.FirstOrDefault(t => t.Id == id);
+            db.Todos.Remove(todo);
+            db.SaveChanges();
         }
     }
 }
