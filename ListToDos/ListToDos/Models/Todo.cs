@@ -56,6 +56,7 @@ namespace ListToDos.Models
                 _isDone = value;
             }
         }
+        public User User { get; set; }
 
         public Todo() { }
         public Todo(string title)

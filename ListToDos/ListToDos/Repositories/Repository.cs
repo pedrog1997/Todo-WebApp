@@ -29,9 +29,10 @@ namespace ListToDos.Repositories
             _db.SaveChanges();
         }
 
-        public List<Todo> Read()
+        public List<Todo> Read(string email, string password)
         {
-            return _db.Todos.ToList();
+            int id = _db.Users.FirstOrDefault(u => u.Email == email && u.Password == password).Id;
+            return _db.Todos.Where(t => t.User.Id == id).ToList();
         }
         public List<Todo> Read(bool isActive)
         {

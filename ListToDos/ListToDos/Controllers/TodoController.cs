@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace ListToDos.Controllers
 {
-    [Route("")]
     [Route("todo")]
     public class TodoController : Controller
     {
@@ -23,9 +22,9 @@ namespace ListToDos.Controllers
 
         [Route("")]
         [Route("list")]
-        public IActionResult List()
+        public IActionResult List(string email, string password)
         {
-            return View(_repository.Read());
+            return View(_repository.Read(email, password));
         }
         [Route("list/{isActive}")]
         public IActionResult List(bool isActive)
