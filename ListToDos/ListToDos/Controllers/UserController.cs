@@ -25,13 +25,24 @@ namespace ListToDos.Controllers
             return View();
         }
 
-        [Route("add-user")]
-        public void AddUser(string email, string password)
+        [Route("adduser1")]
+        public void AddUser()
         {
             db.Users.Add(new User
             {
-                Email = email,
-                Password = password
+                Email = "pedro_0797@hotmail.com",
+                Password = "pass123"
+            });
+            db.SaveChanges();
+        }
+
+        [Route("adduser2")]
+        public void AddUser2()
+        {
+            db.Users.Add(new User
+            {
+                Email = "pedrogmez5@gmail.com",
+                Password = "pass123"
             });
             db.SaveChanges();
         }
