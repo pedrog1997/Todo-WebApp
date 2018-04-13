@@ -9,7 +9,7 @@ namespace ListToDos.Repositories
 {
     public interface IRepository
     {
-        void Create(Todo todo);
+        void Create(Todo todo, int userId);
 
         List<Todo> Read(int id);
         int ReadWithoutId(string email, string password);

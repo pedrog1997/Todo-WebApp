@@ -16,8 +16,9 @@ namespace ListToDos.Repositories
             db = context;
         }
 
-        public void Create(Todo todo)
+        public void Create(Todo todo, int userId)
         {
+            todo.User = db.Users.FirstOrDefault(u => u.Id == userId);
             db.Todos.Add(todo);
             db.SaveChanges();
         }

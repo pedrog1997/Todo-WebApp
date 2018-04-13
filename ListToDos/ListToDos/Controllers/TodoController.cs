@@ -13,6 +13,8 @@ namespace ListToDos.Controllers
     [Route("todo")]
     public class TodoController : Controller
     {
+        static private int userId;
+
         private IRepository repository;
 
         public TodoController(IRepository repository)
@@ -30,27 +32,27 @@ namespace ListToDos.Controllers
         [Route("getUserId")]
         public IActionResult GetUserId(string email, string password)
         {
-            int userId = repository.ReadWithoutId(email, password);
+            userId = repository.ReadWithoutId(email, password);
             return RedirectToAction("List", new {  userId });
         }
 
-        [HttpGet("addTodo")]
-        public IActionResult AddTodo()
-        {
-            return View();
-        }
+        //[HttpGet("addTodo")]
+        //public IActionResult AddTodo()
+        //{
+        //    return View();
+        //}
         [HttpPost("addTodo")]
         public IActionResult AddTodo(Todo todo)
         {
-            repository.Create(todo);
-            return RedirectToAction("List");
+            repository.Create(todo, userId);
+            return RedirectToAction("List", new { userId });
         }
 
         [Route("delete")]
         public IActionResult Delete(int id)
         {
             repository.Delete(id);
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { userId });
         }
 
         [HttpGet("update")]
@@ -62,7 +64,7 @@ namespace ListToDos.Controllers
         public IActionResult Update(int id, string title, bool isUrgent, bool isDone)
         {
             repository.Update(id, title, isUrgent, isDone);
-            return RedirectToAction("List");
+            return RedirectToAction("List", new { userId });
         }
     }
 }
