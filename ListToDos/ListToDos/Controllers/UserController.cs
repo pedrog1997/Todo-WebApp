@@ -33,6 +33,7 @@ namespace ListToDos.Controllers
                 Email = email,
                 Password = password
             });
+            db.SaveChanges();
         }
     }
 }
